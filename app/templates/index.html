@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .elementb,.elementr {transition: all 1s;
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      font-size: 0;
+      text-align: center;
+      line-height: 50px;}
+
+    .elementb {
+      background: blue;
+    }
+    .elementr {
+      background: red;
+    }
+
+    .elementr:hover, .elementb:hover {transform: scale(2); font-size: 0.75rem}
+    </style>
+
+    <div class="container padded">
+
+        <div class="row" id = "goodvevil">
+            {% for result in goodvsevil %}
+            {% if result[1] == "Good" %}
+                <div class="elementb">{{result[0]}}</div>
+            {% else %}
+                <div class="elementr">{{result[0]}}</div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+<script>
+</script>
+{% endblock %}
