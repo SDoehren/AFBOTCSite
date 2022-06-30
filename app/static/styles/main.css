@@ -1,0 +1,49 @@
+
+
+.container.padded {padding-top:20px}
+
+.container-fluid.full-width {
+    padding-left: 0;
+    padding-right: 0;
+    overflow-x: hidden;
+}
+
+table.white {color:#C0C0C0FF}
+
+.form-group.padded {padding-top:20px}
+
+body {color: #C0C0C0FF
+}
+
+a:link,a:visited  {
+    color: #C0C0C0FF;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+  color: #646464;
+}
+
+a.playerlink:link {color:#C0C0C0FF;font-weight:500}
+a.playerlink:visited {color:#C0C0C0FF;font-weight:500}
+a.playerlink:hover {color: #646464;font-weight:500}
+
+.bold {color:#C0C0C0FF;font-weight:500}
+
+.card {background-color:#383a3c}
+
+.xoverlay {
+  position: relative;
+  left: -38px;
+  top: 0px;
+  z-index: 1;
+ }
+
+.nomargin {margin-bottom:0}
+
+p.playernote {font-style: italic;
+    color: #9d9d9d
+}
+
+.row .boxed {border: 2px solid #000;}
