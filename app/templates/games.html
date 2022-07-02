@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <style>
+    .spoiler {
+
+    transition: all 1s;
+    -webkit-transition: all 1s;
+    color: transparent;
+   background-color: #c0c0c0;
+
+}
+
+    .spoiler:hover {
+        color: #c0c0c0;
+       background-color:transparent;
+    }
+    </style>
+
     <div class="container padded">
         <div class="row"  style="display: flex;">
             <div class="col-2 text-center"><a class="btn btn-primary btn-lg" href="/games/{{last}}" role="button">&#8592;{{last}}</a></div>
@@ -23,9 +39,9 @@
             <h1 style="text-align: center">Session {{gamedetails['session']}} Game {{gamedetails['game']}}</h1>
             <h5>Date: {{gamedetails['date']}}<br>
                 Script: {{gamedetails['script']}}<br>
-                Story Tellers: {{STs}}<br>
+                Story Tellers: {{STS}}<br>
                 Players: {{gamedetails['players']}}<br>
-                Winner: {{gamedetails['result']}} - {{gamedetails['winmethod']}}</h5>
+                Winner: <span class="spoiler">{{gamedetails['result']}} - {{gamedetails['winmethod']}}</span></h5>
         </div>
 
         <div class="row">
@@ -44,19 +60,9 @@
             </div>
         </div>
         <div class="row"><br></div>
-        <div class="row" style="display: flex">
-
-            {% for g in gamedetails['playerdata'] %}
-            <div class="col-2 text-center">
-                <img src="https://raw.githubusercontent.com/SDoehren/AFBOTCSite/main/app/{{gamedetails['playerdata'][g]['startingroleimg']}}" width="100">
-                <h4>{{gamedetails['playerdata'][g]['name']}}</h4>
-                {% if gamedetails['playerdata'][g]['rolenote'] == "" %}
-                    <h5>{{gamedetails['playerdata'][g]['startingrole']}}</h5>
-                {% else %}
-                    <h5>{{gamedetails['playerdata'][g]['startingrole']}} ({{gamedetails['playerdata'][g]['rolenote']}})</h5>
-                {% endif %}
-            </div>
-            {% endfor %}
+        <div class="row" style="display: flex" id="TableState">
+        </div>
+        <div class="row" style="display: flex" id="PhaseData">
         </div>
 
 
@@ -64,8 +70,10 @@
     </div>
 
 <script>
+    let DATAPACK = {{gamedetails|tojson|safe}}
+
+
     function phasechange(direction){
-        console.log(direction)
         curphaseel = document.getElementById("curphase")
 
         if (curphaseel.innerHTML==="Set-up" && direction==="back"){
@@ -77,31 +85,76 @@
         } else {
             let day = curphaseel.innerHTML.slice(0,1)
             let number = parseInt(curphaseel.innerHTML.slice(1,999))
-
-            console.log(day)
-            console.log(number)
-            if (day==="N"){
-                day = "D"
-            } else {
-               day = "N"
-            }
-
             if (direction==="back" && day==="N"){
                 number -= 1
             } else if (direction==="forward" && day==="D"){
                 number += 1
             }
 
+            if (day==="N"){
+                day = "D"
+            } else {
+               day = "N"
+            }
+
+
+
             curphaseel.innerHTML = day+number
 
         }
-
+        processphase()
     }
 
-    function processphase(){}
+    function processphase(){
+        let curphaseel = document.getElementById("curphase")
+        let phasedata = document.getElementById("PhaseData")
+        console.log(curphaseel.innerHTML==="Set-up")
+        let html = ""
+
+        if (curphaseel.innerHTML==="Set-up"){
+            console.log(DATAPACK['playerdata'])
+
+            for (const [key, value] of Object.entries(DATAPACK['playerdata'])) {
+                console.log(key, value);
+                html += '<div class="col-2 text-center">'
+
+
+                html += '<img src="'+value["startingroleimg"]+'" width="100">'
+                html += '<h4>'+key+'</h4>'
+
+                html += '<h5>'+value['startingrole']
+
+                if (value['rolenote'] !== ""){
+                    html += ' ('+value['startingrole']+')'
+                }
+
+                html += '</h5>'
+
+                html += '</div>'
+
+            }
+        } else {
+            html += '<div class="row"  style="display: flex;"><div class="col-12">'
+
+            for (const [key, value] of Object.entries(DATAPACK['events'])) {
+                if (value['phase']===curphaseel.innerHTML){
+                    console.log(value)
+                    html += value['HTML']+'<br>'
+                }
+            }
+
+            html += '</div></div>'
+
+        }
+        phasedata.innerHTML = html;
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    }
 
     processphase()
-
 
     function toggletable(vnum){
         var el = document.getElementById("VoteTable"+vnum)

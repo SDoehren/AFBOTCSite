@@ -1,4 +1,5 @@
 from flask import render_template,request,redirect,url_for,jsonify,make_response
+import json
 from app import app
 from app import data
 
@@ -25,7 +26,7 @@ def games(gameid = None):
             sessions.append(pack)
 
     print(game.keys())
-    STs = " | ".join(games[gid]['storytellers'])
+    STS = " | ".join(game['storytellers'])
     return render_template('games.html', title=f"AFBOTC - {gameid}",
                            gamelist = sessions, last=allkeys[gameindex-1], next=allkeys[gameindex+1], gamedetails=game,
-                           STs=STs)
+                           STS=STS)
