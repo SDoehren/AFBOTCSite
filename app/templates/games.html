@@ -15,6 +15,7 @@
         color: #c0c0c0;
        background-color:transparent;
     }
+
     </style>
 
     <div class="container padded">
@@ -59,6 +60,7 @@
             </div>
         </div>
         <div class="row"><br></div>
+
         <div class="row" style="display: flex">
             <div class="col-12 d-flex justify-content-center" id="TableState"></div>
         </div>
@@ -99,13 +101,7 @@
                day = "N"
             }
 
-
-            if (day+number === DATAPACK["events"][DATAPACK["events"].length - 1]["phase"]){
-                document.getElementById("nextbutton").disabled = true;
-            } else {
-                document.getElementById("nextbutton").disabled = false;
-            }
-
+            document.getElementById("nextbutton").disabled = day + number === DATAPACK["events"][DATAPACK["events"].length - 1]["phase"];
             curphaseel.innerHTML = day+number
 
         }
@@ -118,19 +114,21 @@
         let html = ""
 
         if (curphaseel.innerHTML==="Set-up"){
-            console.log(DATAPACK['playerdata'])
+            console.log(DATAPACK['playerorder'])
 
-            for (const [key, value] of Object.entries(DATAPACK['playerdata'])) {
+            for (var i = 0; i < DATAPACK['playerorder'].length; i++) {
                 /*console.log(key, value);*/
+
+                player = DATAPACK['playerorder'][i]
+                playerdata = DATAPACK['playerdata'][player]
                 html += '<div class="col-2 text-center">'
-                html += '<img src="'+value["startingroleimg"]+'" width="100">'
-                html += '<h4>'+key+'</h4>'
-                html += '<h5>'+value['startingrole']
-                if (value['rolenote'] !== ""){
-                    html += ' ('+value['rolenote']+')'
+                html += '<img src="'+playerdata["startingroleimg"]+'" width="100">'
+                html += '<h4>'+player+'</h4>'
+                html += '<h5>'+playerdata['startingrole']
+                if (playerdata['rolenote'] !== ""){
+                    html += ' ('+playerdata['rolenote']+')'
                 }
-                html += '</h5>'
-                html += '</div>'
+                html += '</h5></div>'
 
             }
         } else {
