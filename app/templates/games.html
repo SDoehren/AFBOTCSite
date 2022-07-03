@@ -123,19 +123,13 @@
             for (const [key, value] of Object.entries(DATAPACK['playerdata'])) {
                 /*console.log(key, value);*/
                 html += '<div class="col-2 text-center">'
-
-
                 html += '<img src="'+value["startingroleimg"]+'" width="100">'
                 html += '<h4>'+key+'</h4>'
-
                 html += '<h5>'+value['startingrole']
-
                 if (value['rolenote'] !== ""){
                     html += ' ('+value['rolenote']+')'
                 }
-
                 html += '</h5>'
-
                 html += '</div>'
 
             }
