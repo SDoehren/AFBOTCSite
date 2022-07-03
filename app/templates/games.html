@@ -37,26 +37,25 @@
 
         <div class="row">
             <h1 style="text-align: center">Session {{gamedetails['session']}} Game {{gamedetails['game']}}</h1>
-            <h5>Date: {{gamedetails['date']}}<br>
-                Script: {{gamedetails['script']}}<br>
-                Story Tellers: {{STS}}<br>
-                Players: {{gamedetails['players']}}<br>
-                Winner: <span class="spoiler">{{gamedetails['result']}} - {{gamedetails['winmethod']}}</span></h5>
+            <div class="col-3 text-center"><h5>Date: {{gamedetails['date']}}</h5></div>
+            <div class="col-3 text-center"><h5>Script: {{gamedetails['script']}}</h5></div>
+            <div class="col-3 text-center"><h5>Story Tellers: {{STS}}</h5></div>
+            <div class="col-3 text-center"><h5>Players: {{gamedetails['players']}}</h5></div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center"><h5>Winner: <span class="spoiler">{{gamedetails['result']}} - {{gamedetails['winmethod']}}</span></h5></div>
         </div>
 
         <div class="row">
-            <div class="col-4 text-center"></div>
+            <div class="col-1 text-center"></div>
+            <div class="col-3 text-center" style="display: flex;align-items:center; justify-content: center;">
+                <button type="button" class="btn btn-secondary" onclick="phasechange('back')" disabled id="lastbutton"><h4>Last Phase</h4></button>
+            </div>
             <div class="col-4" style="display: flex;align-items:center; justify-content: center;">
-                <h1 style="font-family: 'Dancing Script', cursive; font-size: 600%;" id="curphase">Set-up</h1>
+                <h1 style="font-family: 'Dancing Script', cursive; font-size: 500%;" id="curphase">Set-up</h1>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-4 text-center"></div>
-            <div class="col-2 text-center" style="display: flex;align-items:center; justify-content: center;">
-                <button type="button" class="btn btn-secondary" onclick="phasechange('back')"><h4>Last Phase</h4></button>
-            </div>
-            <div class="col-2 text-center" style="display: flex;align-items:center; justify-content: center;">
-                <button type="button" class="btn btn-secondary" onclick="phasechange('forward')"><h4>Next Phase</h4></button>
+            <div class="col-3 text-center" style="display: flex;align-items:center; justify-content: center;">
+                <button type="button" class="btn btn-secondary" onclick="phasechange('forward')" id="nextbutton"><h4>Next Phase</h4></button>
             </div>
         </div>
         <div class="row"><br></div>
@@ -81,8 +80,10 @@
             return;
         } else if (curphaseel.innerHTML==="Set-up" && direction==="forward"){
             curphaseel.innerHTML = "N1";
+            document.getElementById("lastbutton").disabled = false;
         } else if (curphaseel.innerHTML==="N1" && direction==="back"){
             curphaseel.innerHTML = "Set-up";
+            document.getElementById("lastbutton").disabled = true;
         } else {
             let day = curphaseel.innerHTML.slice(0,1)
             let number = parseInt(curphaseel.innerHTML.slice(1,999))
@@ -99,6 +100,11 @@
             }
 
 
+            if (day+number === DATAPACK["events"][DATAPACK["events"].length - 1]["phase"]){
+                document.getElementById("nextbutton").disabled = true;
+            } else {
+                document.getElementById("nextbutton").disabled = false;
+            }
 
             curphaseel.innerHTML = day+number
 
