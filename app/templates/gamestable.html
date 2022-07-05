@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+
+    </style>
+
+    <div class="container padded">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-2"><h5>Players</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('players')">Toggle Options</button></div>
+            <div class="col-2"><h5>Characters</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('roles')">Toggle Options</button></div>
+            <div class="col-2"><h5>Session#</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('sessions')">Toggle Options</button></div>
+            <div class="col-2"><h5>Scripts</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('scripts')">Toggle Options</button></div>
+        </div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-2"><h5>Results</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('results')">Toggle Options</button></div>
+            <div class="col-2"><h5>Win Methods</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('winmethods')">Toggle Options</button></div>
+            <div class="col-2"><h5>Table Size</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('playercounts')">Toggle Options</button></div>
+            <div class="col-2"><h5>Story Tellers</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('storytellers')">Toggle Options</button></div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12" style="display:none;" id="Options-players">
+                <h3 style="display: inline;">Players</h3>
+                <p style="display: inline; font-size: 75%;">(Will select games where all players are included)</p>
+                <br>
+                {% for p in players %}
+                <div class="col-1 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="players-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="players-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="display:none" id="Options-roles">
+                <h3 style="display: inline;">Roles</h3>
+                <p style="display: inline; font-size: 75%;">(Will select games where all roles are included)</p>
+                <br>
+                {% for p in roles %}
+                <div class="col-2 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="roles-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="roles-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="display:none" id="Options-sessions">
+                <h3>Sessions</h3>
+                {% for p in sessions %}
+                <div class="col-1 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="sessions-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="sessions-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="display:none" id="Options-scripts">
+                <h3>Scripts</h3>
+                {% for p in scripts %}
+                <div class="col-4 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="scripts-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="scripts-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="display:none" id="Options-results">
+                <h3>Results</h3>
+                {% for p in results %}
+                <div class="col-1 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="results-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="results-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="display:none" id="Options-winmethods">
+                <h3>Win Method</h3>
+                {% for p in winmethods %}
+                <div class="col-3 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="winmethods-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="winmethods-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10" style="display:none" id="Options-playercounts">
+                <h3>Table Size</h3>
+                {% for p in playercounts %}
+                <div class="col-1 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="playercounts-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="playercounts-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="display:none" id="Options-storytellers">
+                <h3>Story Tellers</h3>
+                {% for p in storytellers %}
+                <div class="col-1 form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="storytellers-{{p}}" value="{{p}}" onclick="processtable();">
+                  <label class="form-check-label" for="storytellers-{{p}}">{{p}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row" id="maintable">
+
+        </div>
+    </div>
+
+<script>
+    function toggleoptions(divid){
+        var elem = document.getElementById('Options-'+divid);
+        if (elem.style.display==="none"){
+            elem.style.display="block"
+        } else {
+            elem.style.display="none"
+        }
+
+    }
+
+    let DATAPACK;
+    fetch('/api/gamestable/').then(response => response.json()).then(function(data) {DATAPACK = data; processtable();})
+
+    function processtable(){
+        var checkedplayers = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="players-"]:checked`)).map(x => x.value);
+        var checkedroles = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="roles-"]:checked`)).map(x => x.value);
+        var checkedsessions = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="sessions-"]:checked`)).map(x => x.value);
+        var checkedscripts = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="scripts-"]:checked`)).map(x => x.value);
+        var checkedresults = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="results-"]:checked`)).map(x => x.value);
+        var checkedwinmethods = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="winmethods-"]:checked`)).map(x => x.value);
+        var checkedplayercounts = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="playercounts-"]:checked`)).map(x => x.value);
+        var checkedstorytellers = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="storytellers-"]:checked`)).map(x => x.value);
+        var tabledata = []
+
+        for (const [key, value] of Object.entries(DATAPACK)) {
+            const playerstrue = checkedplayers.map(p => value['playerorder'].includes(p)).every(v => v === true)
+            const rolesstrue = checkedroles.map(p => value['allrolesused'].includes(p)).every(v => v === true)
+            const sessiontrue = ((checkedsessions.map(p => value['session']==p).some(v => v === true)) | (checkedsessions.length === 0))
+            const scriptstrue = ((checkedscripts.map(p => value['script']===p).some(v => v === true)) | (checkedscripts.length === 0))
+            const resultstrue = ((checkedresults.map(p => value['result']===p).some(v => v === true)) | (checkedresults.length === 0))
+            const winmethodstrue = ((checkedwinmethods.map(p => value['winmethod']===p).some(v => v === true)) | (checkedwinmethods.length === 0))
+            const playercountstrue = ((checkedplayercounts.map(p => value['players']==p).some(v => v === true)) | (checkedplayercounts.length === 0))
+            const storytellerstrue = ((checkedstorytellers.map(p => value['storytellers'].includes(p)).some(v => v === true)) | (checkedstorytellers.length === 0))
+
+
+            if ((playerstrue) && (rolesstrue) && (sessiontrue) && (scriptstrue) && (resultstrue) && (winmethodstrue) && (playercountstrue) && (storytellerstrue)) {
+                tabledata.push([value['session'], value['game'], value['script'], value['players'], value['result']])
+            }
+        }
+
+        var sortedtable = tabledata.sort(function(a, b) {
+            if (a[0] == b[0]) {
+                return a[1] - b[1];
+            }
+            return a[0]-b[0];
+        });
+        createTable(sortedtable);
+
+    }
+
+    function createTable(tableData) {
+        var table = document.createElement('table');
+        table.classList.add("table");
+        table.classList.add("table-dark");
+        table.classList.add("table-striped");
+        table.classList.add("table-hover");
+        table.style.width = "100%";
+        table.style.tableLayout = "fixed";
+
+        var tablehead = document.createElement('thead');
+        var headrow = document.createElement('tr');
+        var headData = ["Session","Game", "Script", "Player Count", "Winner","Game Link"]
+
+        headData.forEach(function (cellData) {
+            var head = document.createElement('th')
+            head.setAttribute('scope', "col");
+            head.appendChild(document.createTextNode(cellData));
+            headrow.appendChild(head);
+        });
+
+        tablehead.appendChild(headrow);
+        table.appendChild(tablehead);
+
+        var tableBody = document.createElement('tbody');
+
+        tableData.forEach(function (rowData) {
+            var row = document.createElement('tr');
+
+            rowData.forEach(function (cellData) {
+                var cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(cellData));
+                row.appendChild(cell);
+            });
+
+            var cell = document.createElement('td');
+            cell.innerHTML = '<a href="'+rowData[0]+"-"+rowData[1]+'">'+rowData[0]+"-"+rowData[1]+'</a>';
+            row.appendChild(cell);
+
+            tableBody.appendChild(row);
+        });
+
+        table.appendChild(tableBody);
+        var elem = document.getElementById('maintable');
+        elem.innerHTML = ""
+        elem.appendChild(table);
+    }
+
+
+
+</script>
+
+{% endblock %}

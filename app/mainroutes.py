@@ -20,8 +20,3 @@ def table():
 @app.route('/table/players/data/')
 def playerdata():
     return data.games
-
-@app.route('/tableapi/')
-def tableapi():
-    print(data.games)
-    return "CAT"
