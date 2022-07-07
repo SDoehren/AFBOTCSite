@@ -8,5 +8,5 @@ import copy
 
 
 import pickle
-games,gamessummary = pickle.load( open( "datapack.p", "rb" ) )
+games,gamessummary,awards = pickle.load( open( "datapack.p", "rb" ) )
 
