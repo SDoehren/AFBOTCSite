@@ -11,12 +11,12 @@ def index():
     goodvsevilscore = [len([x for x in goodvsevil if x[1] == "Good"]),
                        len([x for x in goodvsevil if x[1] == "Evil"])]
 
-    goodvsevilper = int((goodvsevilscore[0]/(goodvsevilscore[0]+goodvsevilscore[1]))*100)
+    goodvsevilper = round((goodvsevilscore[0]/(goodvsevilscore[0]+goodvsevilscore[1]))*100)
 
     goodvsevillast15 = goodvsevil[-15:]
     goodvsevillast15score = [len([x for x in goodvsevillast15 if x[1] == "Good"]),
                        len([x for x in goodvsevillast15 if x[1] == "Evil"])]
-    goodvsevillast15per = int((goodvsevillast15score[0] / (goodvsevillast15score[0] + goodvsevillast15score[1])) * 100)
+    goodvsevillast15per = round((goodvsevillast15score[0] / (goodvsevillast15score[0] + goodvsevillast15score[1])) * 100)
 
     awardsum = [{"title":x,"name":data.awards[x]["name"],"winners":data.awards[x]['winners'],
                  "note":data.awards[x]['details'],

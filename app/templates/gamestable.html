@@ -115,6 +115,7 @@
             </div>
         </div>
 
+        <div class="row" id="score"></div>
         <div class="row" id="maintable">
 
         </div>
@@ -160,6 +161,11 @@
                 tabledata.push([value['session'], value['game'], value['script'], value['players'], value['result']])
             }
         }
+
+        var goodwins = tabledata.map(x => x[4]==="Good").filter(x => x)
+        var evilwins = tabledata.map(x => x[4]==="Evil").filter(x => x)
+        var scoreel = document.getElementById('score');
+        scoreel.innerHTML = "<h2>Good "+goodwins.length+" - "+evilwins.length+" Evil ("+Math.round(goodwins.length/(goodwins.length+evilwins.length)*100)+"%)</h2>"
 
         var sortedtable = tabledata.sort(function(a, b) {
             if (a[0] == b[0]) {
