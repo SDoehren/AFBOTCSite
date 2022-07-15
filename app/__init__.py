@@ -8,4 +8,5 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'FD29E48FB911DD1A858D
 from app import mainroutes
 from app import data
 from app import games
+from app import awards
 
