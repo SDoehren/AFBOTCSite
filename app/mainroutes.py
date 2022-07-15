@@ -21,17 +21,17 @@ def index():
     awardsum = [{"title":x,"name":data.awards[x]["name"],"winners":data.awards[x]['winners'],
                  "note":data.awards[x]['details'],
                  "score":data.awards[x]['score']} for x in data.awards]
-    print(awardsum)
+
     awardsum = sample(awardsum,min([12,len(awardsum)]))
 
     return render_template('index.html', title="AFBOTC", goodvsevil = goodvsevil,goodvsevilscore=goodvsevilscore,
                            goodvsevilper=goodvsevilper, goodvsevilscorelast15=goodvsevillast15score,
                            goodvsevillast15per=goodvsevillast15per,awards = awardsum)
 
-@app.route('/table/players/')
+@app.route('/players/')
 def table():
     return render_template('table.html', title="AFBOTC - Performance Table")
 
-@app.route('/table/players/data/')
+@app.route('/players/data/')
 def playerdata():
     return data.games

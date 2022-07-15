@@ -53,7 +53,7 @@
             {% for award in awards %}
             <div class="col-lg-3 col-6 boxed" >
                 <h2 style="text-align: center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{award['note'] | safe}}">
-                    <a class="playerlink" href="/stats/awards/{{award['title']}}">
+                    <a class="playerlink" href="/awards/#{{award['title']}}">
                         {{award['name']}}
                     </a>
                 </h2>
