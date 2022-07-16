@@ -81,7 +81,9 @@
     if (queryStringphase===null){
         curphaseel.innerHTML = "Set-up"
     } else if (queryStringphase.toLowerCase()==='last'){
-        curphaseel.innerHTML = DATAPACK["events"][DATAPACK["events"].length - 1]["phase"]
+        curphaseel.innerHTML = DATAPACK["events"][DATAPACK["events"].length - 1]["phase"];
+        document.getElementById("lastbutton").disabled = false;
+        document.getElementById("lastbutton").disabled = true;
     } else {
         curphaseel.innerHTML = queryStringphase.toUpperCase()
     }
