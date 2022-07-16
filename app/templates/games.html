@@ -73,6 +73,16 @@
 
 <script>
     let DATAPACK = {{gamedetails|tojson|safe}}
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const queryStringphase = urlParams.get('phase')
+    console.log(queryStringphase)
+    let curphaseel = document.getElementById("curphase")
+    if (queryStringphase===null){
+        curphaseel.innerHTML = "Set-up"
+    } else {
+        curphaseel.innerHTML = queryStringphase
+    }
 
 
     function phasechange(direction){

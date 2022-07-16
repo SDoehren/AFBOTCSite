@@ -190,11 +190,18 @@
         var tablehead = document.createElement('thead');
         var headrow = document.createElement('tr');
         var headData = ["Session","Game", "Script", "Player Count","Set Up", "Winner","Game Link"]
-        var widths = [1,1,3,1,2,1,1]
+        var headDatamob = ["S","G", "Script", "Count","Set Up", "Win","Link"]
+        var widths = [1,1,6,2,4,2,2]
         for (let i = 0; i < headData.length; i++) {
             if (i!==4 || window.innerWidth>770) {
                 var width = widths[i]
-                var cellData = headData[i]
+                var cellData;
+                if (window.innerWidth>770){
+                    cellData = headData[i]
+                } else {
+                    cellData = headDatamob[i]
+                }
+
                 var head = document.createElement('th')
                 head.setAttribute('scope', "col");
                 head.style['text-align'] = "center"
