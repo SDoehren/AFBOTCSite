@@ -80,8 +80,10 @@
     let curphaseel = document.getElementById("curphase")
     if (queryStringphase===null){
         curphaseel.innerHTML = "Set-up"
+    } else if (queryStringphase.toLowerCase()==='last'){
+        curphaseel.innerHTML = DATAPACK["events"][DATAPACK["events"].length - 1]["phase"]
     } else {
-        curphaseel.innerHTML = queryStringphase
+        curphaseel.innerHTML = queryStringphase.toUpperCase()
     }
 
 
