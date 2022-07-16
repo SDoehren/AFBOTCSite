@@ -73,6 +73,7 @@
 
 <script>
     let DATAPACK = {{gamedetails|tojson|safe}}
+    console.log(DATAPACK)
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const queryStringphase = urlParams.get('phase')
@@ -91,14 +92,18 @@
 
     function phasechange(direction){
         curphaseel = document.getElementById("curphase")
+        curphaseel = document.getElementById("curphase")
+
 
         if (curphaseel.innerHTML==="Set-up" && direction==="back"){
             return;
         } else if (curphaseel.innerHTML==="Set-up" && direction==="forward"){
             curphaseel.innerHTML = "N1";
+            history.pushState({}, null, DATAPACK['session']+'-'+DATAPACK['game']+"?phase="+curphaseel.innerHTML);
             document.getElementById("lastbutton").disabled = false;
         } else if (curphaseel.innerHTML==="N1" && direction==="back"){
             curphaseel.innerHTML = "Set-up";
+            history.pushState({}, null, DATAPACK['session']+'-'+DATAPACK['game']+"?phase="+curphaseel.innerHTML);
             document.getElementById("lastbutton").disabled = true;
         } else {
             let day = curphaseel.innerHTML.slice(0,1)
@@ -118,6 +123,7 @@
             document.getElementById("nextbutton").disabled = day + number === DATAPACK["events"][DATAPACK["events"].length - 1]["phase"];
             curphaseel.innerHTML = day+number
 
+            history.pushState({}, null, DATAPACK['session']+'-'+DATAPACK['game']+"?phase="+day+number);
         }
         processphase()
     }
