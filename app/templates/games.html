@@ -102,7 +102,7 @@
             history.pushState({}, null, DATAPACK['session']+'-'+DATAPACK['game']+"?phase="+curphaseel.innerHTML);
             document.getElementById("lastbutton").disabled = false;
         } else if (curphaseel.innerHTML==="N1" && direction==="back"){
-            curphaseel.innerHTML = "Set-up"; 
+            curphaseel.innerHTML = "Set-up";
             history.pushState({}, null, DATAPACK['session']+'-'+DATAPACK['game']+"?phase="+curphaseel.innerHTML);
             document.getElementById("lastbutton").disabled = true;
         } else {

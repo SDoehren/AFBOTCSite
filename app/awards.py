@@ -8,8 +8,10 @@ def awardslist():
     awards = [data.awards[x] for x in data.awards]
     order = {'winningestplayer': 1, 'winningestrole': 2, 'stickyfingers': 3, 'goodest': 4, 'switchhitter': 5,
              'fingerpointer': 6, 'demonhunter': 7, 'pickme': 8, 'earlygoose': 9, 'themint': 10, 'novote': 11,
-             'whome': 12}
+             'whome': 12, 'bestestbuds':13, 'dynamicduo':14}
 
+    fulllist = ['winningestplayer', 'winningestrole', 'stickyfingers', 'goodest', 'switchhitter', 'fingerpointer', 'pickme', 'earlygoose', 'themint', 'novote', 'demonhunter', 'whome', 'bestestbuds', 'dynamicduo']
+    print("MISSING",[x for x in fulllist if x not in order])
     awards.sort(key=lambda x:order.get(x['name'], 999))
 
     return render_template('awards.html', title="AFBOTC - Awards", awards = awards)
