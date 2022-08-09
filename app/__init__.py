@@ -9,4 +9,5 @@ from app import mainroutes
 from app import data
 from app import games
 from app import awards
+from app import players
 

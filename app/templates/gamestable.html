@@ -7,18 +7,18 @@
 
     <div class="container padded">
         <div class="row">
-            <div class="col-0 col-2-md"></div>
-            <div class="col-3 col-2-md"><h5>Players</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('players')">Toggle Options</button></div>
-            <div class="col-3 col-2-md"><h5>Characters</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('roles')">Toggle Options</button></div>
-            <div class="col-3 col-2-md"><h5>Session#</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('sessions')">Toggle Options</button></div>
-            <div class="col-3 col-2-md"><h5>Scripts</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('scripts')">Toggle Options</button></div>
+            <div class="col-0 col-md-2"></div>
+            <div class="col-3 col-md-2"><h5>Players</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('players')">Toggle Options</button></div>
+            <div class="col-3 col-md-2"><h5>Characters</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('roles')">Toggle Options</button></div>
+            <div class="col-3 col-md-2"><h5>Session#</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('sessions')">Toggle Options</button></div>
+            <div class="col-3 col-md-2"><h5>Scripts</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('scripts')">Toggle Options</button></div>
         </div>
         <div class="row">
-            <div class="col-0 col-2-md"></div>
-            <div class="col-3 col-2-md"><h5>Results</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('results')">Toggle Options</button></div>
-            <div class="col-3 col-2-md"><h5>Win Methods</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('winmethods')">Toggle Options</button></div>
-            <div class="col-3 col-2-md"><h5>Table Size</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('playercounts')">Toggle Options</button></div>
-            <div class="col-3 col-2-md"><h5>Story Tellers</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('storytellers')">Toggle Options</button></div>
+            <div class="col-0 col-md-2"></div>
+            <div class="col-3 col-md-2"><h5>Results</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('results')">Toggle Options</button></div>
+            <div class="col-3 col-md-2"><h5>Win Methods</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('winmethods')">Toggle Options</button></div>
+            <div class="col-3 col-md-2"><h5>Table Size</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('playercounts')">Toggle Options</button></div>
+            <div class="col-3 col-md-2"><h5>Story Tellers</h5><button type="button" class="btn btn-outline-primary btn-sm" onclick="toggleoptions('storytellers')">Toggle Options</button></div>
         </div>
 
 
@@ -28,7 +28,7 @@
                 <p style="display: inline; font-size: 75%;">(Will select games where all players are included)</p>
                 <br>
                 {% for p in players %}
-                <div class="col-3 col-1-md form-check form-check-inline">
+                <div class="col-3 col-md-1 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="players-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="players-{{p}}">{{p}}</label>
                 </div>
@@ -41,7 +41,7 @@
                 <p style="display: inline; font-size: 75%;">(Will select games where all roles are included)</p>
                 <br>
                 {% for p in roles %}
-                <div class="col-5 col-2-md form-check form-check-inline">
+                <div class="col-5 col-md-2 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="roles-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="roles-{{p}}">{{p}}</label>
                 </div>
@@ -63,7 +63,7 @@
             <div class="col-12" style="display:none" id="Options-scripts">
                 <h3>Scripts</h3>
                 {% for p in scripts %}
-                <div class="col-11 col-5-md form-check form-check-inline">
+                <div class="col-11 col-md-5 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="scripts-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="scripts-{{p}}">{{p}}</label>
                 </div>
@@ -74,7 +74,7 @@
             <div class="col-12" style="display:none" id="Options-results">
                 <h3>Results</h3>
                 {% for p in results %}
-                <div class="col-4 col-2-md form-check form-check-inline">
+                <div class="col-4 col-md-2 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="results-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="results-{{p}}">{{p}}</label>
                 </div>
@@ -85,7 +85,7 @@
             <div class="col-12" style="display:none" id="Options-winmethods">
                 <h3>Win Method</h3>
                 {% for p in winmethods %}
-                <div class="col-11 col-3-md form-check form-check-inline">
+                <div class="col-11 col-md-3 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="winmethods-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="winmethods-{{p}}">{{p}}</label>
                 </div>
@@ -96,7 +96,7 @@
             <div class="col-12" style="display:none" id="Options-playercounts">
                 <h3>Table Size</h3>
                 {% for p in playercounts %}
-                <div class="col-3 col-2-md form-check form-check-inline">
+                <div class="col-3 col-md-2 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="playercounts-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="playercounts-{{p}}">{{p}}</label>
                 </div>
@@ -107,7 +107,7 @@
             <div class="col-12" style="display:none" id="Options-storytellers">
                 <h3>Story Tellers</h3>
                 {% for p in storytellers %}
-                <div class="col-3 col-2-md form-check form-check-inline">
+                <div class="col-3 col-md-2 form-check form-check-inline">
                   <input class="form-check-input" type="checkbox" id="storytellers-{{p}}" value="{{p}}" onclick="processtable();">
                   <label class="form-check-label" for="storytellers-{{p}}">{{p}}</label>
                 </div>

@@ -28,10 +28,3 @@ def index():
                            goodvsevilper=goodvsevilper, goodvsevilscorelast15=goodvsevillast15score,
                            goodvsevillast15per=goodvsevillast15per,awards = awardsum)
 
-@app.route('/players/')
-def table():
-    return render_template('table.html', title="AFBOTC - Performance Table")
-
-@app.route('/players/data/')
-def playerdata():
-    return data.games

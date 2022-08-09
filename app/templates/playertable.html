@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container padded">
+
+        <div class="row" id = "maintable">
+        </div>
+
+    </div>
+
+
+<script>
+    let DATAPACK;
+    fetch('/api/players/').then(response => response.json()).then(function(data) {DATAPACK = data; processtable();})
+
+    function processtable(){
+
+        var tabledata = []
+
+        for (const [key, value] of Object.entries(DATAPACK)) {
+            tabledata.push([key,value['Played'], value['Combined WAR']])
+        }
+
+        var sortedtable = tabledata.sort(function(a, b) {
+            if (a[2] == b[2]) {
+                return b[1]-a[1];
+            }
+            return b[2]-a[2];
+
+        });
+        createTable(sortedtable);
+    }
+
+    function createTable(tableData) {
+        var table = document.createElement('table');
+        table.classList.add("table");
+        table.classList.add("table-dark");
+        table.classList.add("table-striped");
+        table.classList.add("table-hover");
+        table.style.width = "100%";
+        table.style.tableLayout = "fixed";
+
+        var tablehead = document.createElement('thead');
+        var headrow = document.createElement('tr');
+        var headData = ["Name","Played", "Combined WAR",]
+        var headDatamob = ["S","G", "Script", "Count","Set Up", "Win","Link"]
+        for (let i = 0; i < headData.length; i++) {
+            if (i!==4 || window.innerWidth>770) {
+                var cellData;
+                if (window.innerWidth>770){
+                    cellData = headData[i]
+                } else {
+                    cellData = headDatamob[i]
+                }
+
+                var head = document.createElement('th')
+                head.setAttribute('scope', "col");
+                head.style['text-align'] = "center"
+                head.appendChild(document.createTextNode(cellData));
+                headrow.appendChild(head);
+            }
+        }
+
+        tablehead.appendChild(headrow);
+        table.appendChild(tablehead);
+
+        var tableBody = document.createElement('tbody');
+        for (let i = 0; i < tableData.length; i++) {
+            var rowData = tableData[i]
+            console.log(rowData)
+            var row = document.createElement('tr');
+
+            for (let i = 0; i < rowData.length; i++) {
+                var cellDatax = rowData[i]
+                var cell = document.createElement('td');
+                if (i===0){
+                    cell.innerHTML = '<a href="/players/'+rowData[i]+'">'+rowData[i]+'</a>'
+                } else {
+                    cell.appendChild(document.createTextNode(cellDatax));
+                }
+                cell.style['text-align'] = "center"
+                row.appendChild(cell);
+            };
+            tableBody.appendChild(row);
+        };
+
+        table.appendChild(tableBody);
+
+        var elem = document.getElementById('maintable');
+        elem.innerHTML = ""
+        elem.appendChild(table);
+    }
+
+</script>
+{% endblock %}
